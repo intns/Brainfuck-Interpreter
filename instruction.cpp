@@ -31,7 +31,7 @@ namespace bf
 			stream << "[WhileEnd]";
 			break;
 		case bf::Instruction::Invalid:
-			stream << "[INVALID]";
+			stream << "[Invalid]";
 			break;
 		default:
 			break;
