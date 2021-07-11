@@ -89,7 +89,7 @@ namespace bf
 		const std::vector<u8>& cells = bf.getCells();
 		for (std::size_t i = 0; i < cells.size(); i++)
 		{
-			stream << "CELL [" << i << "] [" << cells[i] << "]\n";
+			stream << "CELL [" << i << "] [" << (u32)cells[i] << "]\n";
 		}
 		return stream;
 	}

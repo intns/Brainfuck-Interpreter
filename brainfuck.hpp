@@ -43,5 +43,5 @@ namespace bf
 		void execute();
 	};
 
-	static std::ostream& operator<<(std::ostream& stream, BrainFuck& bf);
+	std::ostream& operator<<(std::ostream& stream, BrainFuck& bf);
 }
