@@ -7,5 +7,7 @@ int main(int argc, char** argv)
 	engine.read("++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.");
 	engine.execute();
 
+	std::cout << engine;
+
 	return EXIT_SUCCESS;
 }
