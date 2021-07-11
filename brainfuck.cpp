@@ -2,34 +2,41 @@
 
 namespace bf
 {
-	std::ostream& operator<<(std::ostream& stream, BrainFuck& bf)
-	{
-		const std::vector<u8>& cells = bf.getCells();
-		for (std::size_t i = 0; i < cells.size(); i++)
-		{
-			stream << "CELL [" << i << "] [" << cells[i] << "]\n";
-		}
-		return stream;
-	}
-
 	const Instruction BrainFuck::identifyInstruction(u8 toIdentify) const
 	{
 		if (m_conversionTable.contains(toIdentify))
 		{
 			return m_conversionTable.at(toIdentify);
 		}
+
 		return Instruction::Invalid;
+	}
+
+	void BrainFuck::clear(const bool resetCells)
+	{
+		if (resetCells)
+		{
+			std::fill(m_cells.begin(), m_cells.end(), 0);
+		}
+
+		m_instructions.clear();
 	}
 
 	void BrainFuck::read(const char* input)
 	{
 		for (std::size_t i = 0; input[i]; i++)
 		{
-			const char inputC = input[i];
-			const Instruction convInstruction = identifyInstruction(inputC);
-			m_instructions.push_back(convInstruction);
+			m_instructions.push_back(identifyInstruction(input[i]));
+		}
+	}
 
-			switch (convInstruction)
+	void BrainFuck::execute()
+	{
+		for (std::size_t i = 0; i < m_instructions.size(); i++)
+		{
+			const Instruction curInstruction = m_instructions[i];
+
+			switch (curInstruction)
 			{
 			case bf::Instruction::IncrementDp:
 				m_index++;
@@ -47,7 +54,7 @@ namespace bf
 				std::cout << m_cells[m_index];
 				break;
 			case bf::Instruction::Input:
-				m_cells[m_index] = std::getc(stdin);
+				m_cells[m_index] = std::getc(m_inputStream);
 				break;
 			case bf::Instruction::WhileStart:
 				continue;
@@ -57,12 +64,12 @@ namespace bf
 					std::size_t loopIdx = 1;
 					while (loopIdx > 0)
 					{
-						const char backChar = input[--i];
-						if (backChar == '[')
+						const Instruction prevInst = m_instructions[--i];
+						if (prevInst == Instruction::WhileStart)
 						{
 							loopIdx--;
 						}
-						else if (backChar == ']')
+						else if (prevInst == Instruction::WhileEnd)
 						{
 							loopIdx++;
 						}
@@ -77,4 +84,13 @@ namespace bf
 		}
 	}
 
+	std::ostream& operator<<(std::ostream& stream, BrainFuck& bf)
+	{
+		const std::vector<u8>& cells = bf.getCells();
+		for (std::size_t i = 0; i < cells.size(); i++)
+		{
+			stream << "CELL [" << i << "] [" << cells[i] << "]\n";
+		}
+		return stream;
+	}
 }
