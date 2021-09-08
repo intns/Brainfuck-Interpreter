@@ -3,6 +3,9 @@ Simple Brainfuck interpreter utillising C++20
 
 Adds a namespace named "bf" that contains 2 public classes, `BrainFuck` and `Instruction`.
 
+## Example Program Usage
+Drag and drop an input file stream (replaces the standard input buffer used by the parser), and then copy and paste your BF code into the command line window. The code is then executed once it has been entered and the ENTER button has been pressed.
+
 ## Instruction
 Instruction is an enumerated class type that just contains the possible operations in any given BrainFuck implementation.
 
