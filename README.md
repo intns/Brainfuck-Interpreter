@@ -1,5 +1,5 @@
 # Brainfuck-Interpreter
-Simple Brainfuck interpreter utillising C++20
+A simple BrainFuck interpreter.
 
 Adds a namespace named "bf" that contains 2 public classes, `BrainFuck` and `Instruction`.
 
